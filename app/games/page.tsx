@@ -3,7 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Games = async ({ params }) => {
+type Game = {
+  id: number;
+  name: string;
+  background_image: string;
+};
+const Games = async () => {
   const res = await fetch(
     `https://api.rawg.io/api/games?key=${process.env.RAWG_API_KEY}`,
     { next: { revalidate: 86400 } }
@@ -13,7 +18,7 @@ const Games = async ({ params }) => {
   return (
     <div>
       <section>
-        {data.results.map((game) => (
+        {data.results.map((game: Game) => (
           <Link key={game.id} href={"/"}>
             <Card>
               <CardContent>
