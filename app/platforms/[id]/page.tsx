@@ -20,7 +20,7 @@ const Platform = async ({ searchParams, params }: Props) => {
 
       <section className="grid grid-cols-2 md:gap-8 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-2">
         {games.results?.map((game: Game) => (
-          <Link key={game.id} href={"/"}>
+          <Link key={game.id} href={`./${id}/games/${game.id}`}>
             <Card className="h-[200px] relative hover:scale-105 transition-all duration-300">
               <CardContent>
                 <Image

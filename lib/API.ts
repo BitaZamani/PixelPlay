@@ -156,3 +156,22 @@ export async function fetchAPublisher(page:number,id:number) {
 
     return { data, games };
 }
+
+export async function fetchAGame(id:number) {
+  const url = `${BASE_URL}/games/${id}?key=${
+    API_KEY
+  }`;
+  const options = {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": RAPID_KEY || "",
+      "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+    },
+    next: { revalidate: 86400 },
+  };
+
+  const response = await fetch(url, options);
+  const data = await response.json();
+  return data
+  
+}
