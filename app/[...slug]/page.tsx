@@ -1,3 +1,4 @@
+import GameDetails from "@/components/gameDetails";
 import { fetchAGame } from "@/lib/API";
 import { Props } from "@/lib/types";
 import Image from "next/image";
@@ -13,15 +14,8 @@ const Game = async ({ params }: Props) => {
   const data = await fetchAGame(Number(id));
 
   return (
-    <div className="bg-green-100 h-screen z-40 text-white">
-      <Image
-        src={data.background_image}
-        height={200}
-        width={200}
-        alt="dxfghjm,"
-        unoptimized
-      />
-      {data.name}
+    <div className="bg-black text-purple-100">
+      <GameDetails data={data} />
     </div>
   );
 };

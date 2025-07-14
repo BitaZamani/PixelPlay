@@ -4,7 +4,9 @@ import { Button } from "./ui/button";
 const HeroSection = () => {
   return (
     <section className="my-6 flex justify-center items-center gap-1 md:gap-4 flex-col">
-      <span className="text-3xl md:text-6xl text-purple-100 font-bitcount">
+      <span
+        className={`text-3xl md:text-6xl text-purple-100 font-bitcount`}
+      >
         Your Portal to Every Pixel
       </span>
       <span className="text-gray-200 text-sm md:text-lg">

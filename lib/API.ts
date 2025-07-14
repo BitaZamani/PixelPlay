@@ -167,7 +167,6 @@ export async function fetchAGame(id:number) {
       "x-rapidapi-key": RAPID_KEY || "",
       "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
     },
-    next: { revalidate: 86400 },
   };
 
   const response = await fetch(url, options);
