@@ -1,31 +1,28 @@
-import Banner from "@/components/banner";
 import PaginationSection from "@/components/paginationSection";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { fetchGames } from "@/lib/API";
-import Image from "next/image";
+import { fetchAGenre } from "@/lib/API";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
+import Banner from "@/components/banner";
 
-type Game = {
-  id: number;
-  name: string;
-  background_image: string;
-  rating: number;
-};
-const Games = async ({
-  searchParams,
-}: {
-  searchParams?: { page?: string };
+const Genre = async (props: {
+  searchParams?: { page: number };
+  params: { id: string };
 }) => {
-  const page = Number(searchParams?.page) || 1;
+  const { searchParams, params } = props;
+  const page = Number(searchParams?.page || 1);
+  const id = Number(params.id);
+  console.log(id);
 
-  const data = await fetchGames(page);
+  const { data, games } = await fetchAGenre(page, id);
+  console.log(games);
   return (
-    <div className="my-5">
-      <Banner name="Games" src={"/pagesBanner/games.jpg"} />
+    <div>
+      <Banner name={data.name} src={data?.image_background} />
 
-      <section className="grid grid-cols-2 md:gap-8 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-4">
-        {data.results?.map((game: Game) => (
+      <section className="grid grid-cols-2 md:gap-8 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-2">
+        {games.results?.map((game) => (
           <Link key={game.id} href={"/"}>
             <Card className="h-[200px] relative hover:scale-105 transition-all duration-300">
               <CardContent>
@@ -46,9 +43,14 @@ const Games = async ({
           </Link>
         ))}
       </section>
-      <PaginationSection count={data.count} page={page} urlBase="games" />
+      <PaginationSection
+        count={data.count}
+        page={page}
+        urlBase="genres"
+        subUrl={id}
+      />
     </div>
   );
 };
 
-export default Games;
+export default Genre;

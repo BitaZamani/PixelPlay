@@ -122,3 +122,4 @@
 .font-bitcount {
   font-family: "Bitcount Grid Double", sans-serif;
 }
+@plugin "tailwindcss-pattern";

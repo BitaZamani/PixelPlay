@@ -2,7 +2,6 @@ import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDownIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 
 function NavigationMenu({
@@ -37,7 +36,7 @@ function NavigationMenuList({
     <NavigationMenuPrimitive.List
       data-slot="navigation-menu-list"
       className={cn(
-        "group flex list-none items-center justify-center gap-1 bg-transparent border border-primary rounded-md w-full mx-auto",
+        "group flex list-none items-center justify-center gap-1 bg-transparent border border-purple-700 rounded-md w-full mx-auto",
         className
       )}
       {...props}
@@ -129,7 +128,7 @@ function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "data-[active=true]:text-accent-foreground hover:text-primary focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 whitespace-nowrap",
+        "data-[active=true]:text-fuchsia-300 hover:text-fuchsia-300 text-purple-100 focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4 whitespace-nowrap",
         className
       )}
       {...props}

@@ -1,5 +1,5 @@
 
-import CategoriesSection from "@/components/ui/categoriesSection";
+import CategoriesSection from "@/components/categoriesSection";
 
 
 export default function Home() {
