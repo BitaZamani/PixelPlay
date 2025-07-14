@@ -127,7 +127,32 @@ export async function fetchAPlatform(page:number,id:number) {
             fetch(gameUrl,options)
         ]
     )
-    const [data, platforms] = await Promise.all([response.json(), response2.json()]);
+    const [data, games] = await Promise.all([response.json(), response2.json()]);
 
-    return { data, platforms };
+    return { data, games };
+}
+export async function fetchAPublisher(page:number,id:number) {
+    const url = `${BASE_URL}/publishers/${id}?key=${
+        API_KEY
+      }`;
+    const gameUrl = `${BASE_URL}/games?publishers=${id}&key=${
+        API_KEY
+      }&page=${page}`;
+      const options = {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": RAPID_KEY || "",
+          "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+        },
+        next: { revalidate: 86400 },
+      };
+    const[response,response2]= await Promise.all(
+        [
+            fetch(url, options),
+            fetch(gameUrl,options)
+        ]
+    )
+    const [data, games] = await Promise.all([response.json(), response2.json()]);
+
+    return { data, games };
 }

@@ -2,20 +2,12 @@ import Banner from "@/components/banner";
 import PaginationSection from "@/components/paginationSection";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { fetchGames } from "@/lib/API";
+import { Game, PropsSearch } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-type Game = {
-  id: number;
-  name: string;
-  background_image: string;
-  rating: number;
-};
-type Props = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-const Games = async ({ searchParams }: Props) => {
+const Games = async ({ searchParams }: PropsSearch) => {
   const searchParam = await searchParams;
   const page = Number(searchParam.page) || 1;
 

@@ -1,21 +1,19 @@
 import PaginationSection from "@/components/paginationSection";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { fetchAGenre } from "@/lib/API";
+import { fetchAPlatform } from "@/lib/API";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import Banner from "@/components/banner";
 import { Game, Props } from "@/lib/types";
-
-const Genre = async ({ searchParams, params }: Props) => {
+const Publisher = async ({ searchParams, params }: Props) => {
   const searchParam = await searchParams;
   const param = await params;
   const page = Number(searchParam.page || 1);
   const id = Number(param.id);
-  console.log(id);
 
-  const { data, games } = await fetchAGenre(page, id);
-  console.log(games);
+  const { data, games } = await fetchAPlatform(page, id);
+
   return (
     <div>
       <Banner name={data.name} src={data?.image_background} />
@@ -52,4 +50,4 @@ const Genre = async ({ searchParams, params }: Props) => {
   );
 };
 
-export default Genre;
+export default Publisher;
