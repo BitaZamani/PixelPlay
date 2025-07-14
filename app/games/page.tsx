@@ -12,12 +12,12 @@ type Game = {
   background_image: string;
   rating: number;
 };
-const Games = async (props: {
-  searchParams?: Record<string, string | string[]>;
-}) => {
-  const { searchParams } = props;
-
-  const page = Number(searchParams?.page) || 1;
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+const Games = async ({ searchParams }: Props) => {
+  const searchParam = await searchParams;
+  const page = Number(searchParam.page) || 1;
 
   const data = await fetchGames(page);
   return (
