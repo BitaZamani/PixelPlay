@@ -134,14 +134,16 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
           <CarouselPrevious />
           <CarouselContent>
             {screens?.results.map((screen) => (
-              <CarouselItem key={screen.id} className="basis-1/2 md:basis-1/3 h-full">
+              <CarouselItem
+                key={screen.id}
+                className="basis-1/2 md:basis-1/3 h-full w-full relative"
+              >
                 <Image
                   src={screen.image}
                   alt=""
-                  height={200}
-                  width={200}
+                  fill
                   onClick={() => openImages(screen.image)}
-                  className="w-[150px] h-full"
+                  className="object-cover"
                 />
               </CarouselItem>
             ))}

@@ -189,7 +189,7 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "size-8 rounded-full mr-2",
+        "size-8 rounded-full mr-2 bg-fuchsia-100 text-black hover:text-fuchsia-900",
         orientation === "horizontal" ? "rotate-0" : "rotate-90",
         className
       )}
@@ -217,7 +217,7 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "ml-2 size-8 rounded-full",
+        "ml-2 size-8 rounded-full bg-fuchsia-100 text-black hover:text-fuchsia-900",
         orientation === "horizontal" ? "rotate-0" : "rotate-90",
         className
       )}
