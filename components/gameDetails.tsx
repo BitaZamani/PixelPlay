@@ -32,7 +32,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
     window.open(url, "_blank");
   };
   return (
-    <div className="p-2.5">
+    <div className="p-2.5 bg-black text-purple-100">
       <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative">
         <div className="h-[200px] pattern-diagonal-lines-sm pattern-color-purple-100">
           <Image
@@ -135,13 +135,14 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
           <CarouselContent>
             {screens?.results.map((screen) => (
               <CarouselItem key={screen.id} className="basis-1/2 md:basis-1/3">
-                <div className="relative w-[150px]  md:w-[180px] gap-2 h-full">
+                <div className="w-[200px] md:w-[240px] gap-2 h-full">
                   <Image
                     src={screen.image}
                     alt=""
-                    fill
+                    width={300}
+                    height={300}
                     onClick={() => openImages(screen.image)}
-                    className="object-cover"
+                    className="w-full h-full"
                   />
                 </div>
               </CarouselItem>

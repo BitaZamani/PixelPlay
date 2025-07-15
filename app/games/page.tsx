@@ -37,8 +37,8 @@ const Games = async ({ searchParams }: PropsSearch) => {
             </Card>
           </Link>
         ))}
-        <PaginationSection count={data.count} page={page} urlBase="games" />
       </section>
+        <PaginationSection count={data.count} page={page} urlBase="games" />
     </div>
   );
 };
