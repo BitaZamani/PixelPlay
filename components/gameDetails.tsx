@@ -22,8 +22,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
+import { useEffect } from "react";
 
 const GameDetails = ({ data, screens }: GameDetailProps) => {
+  useEffect(() => {
+    console.log(screens);
+  }, [screens]);
   return (
     <div>
       <section className="flex items-center p-2.5 md:justify-between gap-12 flex-col md:flex-row relative">
