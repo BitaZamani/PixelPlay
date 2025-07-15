@@ -23,13 +23,36 @@ export type Props = {
     image_background: string;
   };
 
-  export type GameData={
-    background_image:string,
-    name:string,
-    released: string,
-    genres:{id:number,name:string}[],
-    tba:boolean,
+  type Platform = {
+    id: number;
+    name: string;
+  };
+
+  
+  export type Screenshots = {
+   
+    results: {id: number;
+      image: string;}[];
+  };
+  
+  export type GameData = {
+    background_image: string;
+    name: string;
+    released: string;
+    genres: { id: number; name: string }[];
+    tba: boolean;
     metacritic: number;
     playtime: number;
-    description: string;
-  }
+    description_raw: string;
+    platforms: { released_at: string; platform: Platform }[];
+    publishers: { id: number; image_background: string; name: string }[];
+  };
+  
+  export type GameDetailProps = {
+    data: GameData;
+    screens: Screenshots;
+  };
+  
+
+
+

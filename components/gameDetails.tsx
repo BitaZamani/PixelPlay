@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import React from "react";
 import {
   Drawer,
   DrawerClose,
@@ -12,15 +11,22 @@ import {
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Link from "next/link";
 import { Bookmark, Heart } from "lucide-react";
-import { GameData } from "@/lib/types";
-type GameDetailsProps = {
-  data: GameData; 
-};
+import { GameDetailProps } from "@/lib/types";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "./ui/table";
+import Divider from "./ui/divider";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel";
 
-const GameDetails = ({ data }: GameDetailsProps) => {
+const GameDetails = ({ data, screens }: GameDetailProps) => {
   return (
     <div>
-      <section className="flex items-center  md:justify-between gap-12 flex-col md:flex-row relative">
+      <section className="flex items-center p-2.5 md:justify-between gap-12 flex-col md:flex-row relative">
         <div className="h-[200px] pattern-diagonal-lines-sm pattern-color-purple-100">
           <Image
             src={data.background_image}
@@ -53,24 +59,81 @@ const GameDetails = ({ data }: GameDetailsProps) => {
           </div>
           <span>Metacritic: {data.metacritic}</span>
           <span>Play Time: {data.playtime} Hours</span>
+          <div>
+            <span>Publishers: </span>
+            <span>
+              {data.publishers.map((publisher) => (
+                <Link key={publisher.id} href={`/publishers/${publisher.id}`}>
+                  {publisher.name}
+                </Link>
+              ))}
+            </span>
+          </div>
           <Drawer>
             <DrawerTrigger className="text-left underline underline-offset-4">
               Read full description
             </DrawerTrigger>
             <DrawerContent className="bg-fuchsia-950 text-purple-100">
               <DialogTitle>Description</DialogTitle>
-              <DrawerDescription>{data.description}</DrawerDescription>
+              <DrawerDescription>{data.description_raw}</DrawerDescription>
               <DrawerFooter>
                 <DrawerClose>Close</DrawerClose>
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
         </div>
+        <div className="absolute right-2 bottom-2 gap-2.5 flex">
+          <Tooltip>
+            <TooltipTrigger>
+              <Heart />
+            </TooltipTrigger>
+            <TooltipContent>Favorite</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger>
+              <Bookmark />
+            </TooltipTrigger>
+            <TooltipContent>Bookmark</TooltipContent>
+          </Tooltip>
+        </div>
       </section>
-      <div className="absolute right-2 bottom-2 md:top-2 ">
-        <Heart />
-        <Bookmark />
-      </div>
+      <section>
+        <Divider name="Platforms" />
+
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableCell>Platform</TableCell>
+              <TableCell>Release Date</TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody className="text-xs">
+            {data.platforms.map((platform) => (
+              <TableRow key={platform.platform.id}>
+                <TableCell>
+                  <Link href={`/platforms/${platform.platform.id}`}>
+                    {platform.platform.name}
+                  </Link>
+                </TableCell>
+                <TableCell>{platform.released_at}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </section>
+      <section>
+        <Carousel>
+          <CarouselContent>
+            <CarouselPrevious />
+            {screens?.results.map((screen) => (
+              <CarouselItem key={screen.id}>
+                <Image src={screen.image} alt="" height={200} width={200} />
+              </CarouselItem>
+            ))}
+            <CarouselNext />
+          </CarouselContent>
+        </Carousel>
+      </section>
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Publishers = async ({ searchParams }: PropsSearch) => {
 
       <section className="grid grid-cols-2 md:gap-8 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-4">
         {data.results?.map((publisher: Category) => (
-          <Link key={publisher.id} href={"/"}>
+          <Link key={publisher.id} href={`publishers/${publisher.id}`}>
             <Card className="h-[200px] relative hover:scale-105 transition-all duration-300">
               <CardContent>
                 <Image

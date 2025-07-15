@@ -10,11 +10,11 @@ const Game = async ({ params }: Props) => {
   if (slug?.length === 2 && slug[0] === "games") id = slug[slug.length - 1];
   else if (slug?.length === 4 && slug[2] === "games")
     id = slug[slug.length - 1];
-  const data = await fetchAGame(Number(id));
-
+  const { data, screens } = await fetchAGame(Number(id));
+  console.log("ftfyoi;h'hgilu",screens);
   return (
     <div className="bg-black text-purple-100">
-      <GameDetails data={data} />
+      <GameDetails data={data} screens={screens} />
     </div>
   );
 };

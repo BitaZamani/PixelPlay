@@ -1,6 +1,6 @@
 import PaginationSection from "@/components/paginationSection";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { fetchAPlatform } from "@/lib/API";
+import { fetchAPublisher } from "@/lib/API";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
@@ -12,7 +12,7 @@ const Publisher = async ({ searchParams, params }: Props) => {
   const page = Number(searchParam.page || 1);
   const id = Number(param.id);
 
-  const { data, games } = await fetchAPlatform(page, id);
+  const { data, games } = await fetchAPublisher(page, id);
 
   return (
     <div>
