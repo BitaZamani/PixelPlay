@@ -1,7 +1,6 @@
 import GameDetails from "@/components/gameDetails";
 import { fetchAGame } from "@/lib/API";
 import { Props } from "@/lib/types";
-import Image from "next/image";
 import React from "react";
 
 const Game = async ({ params }: Props) => {

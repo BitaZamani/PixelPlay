@@ -22,3 +22,14 @@ export type Props = {
     name: string;
     image_background: string;
   };
+
+  export type GameData={
+    background_image:string,
+    name:string,
+    released: string,
+    genres:{id:number,name:string}[],
+    tba:boolean,
+    metacritic: number;
+    playtime: number;
+    description: string;
+  }

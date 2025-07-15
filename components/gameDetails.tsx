@@ -12,8 +12,12 @@ import {
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Link from "next/link";
 import { Bookmark, Heart } from "lucide-react";
+import { GameData } from "@/lib/types";
+type GameDetailsProps = {
+  data: GameData; 
+};
 
-const GameDetails = ({ data }) => {
+const GameDetails = ({ data }: GameDetailsProps) => {
   return (
     <div>
       <section className="flex items-center  md:justify-between gap-12 flex-col md:flex-row relative">
@@ -64,8 +68,8 @@ const GameDetails = ({ data }) => {
         </div>
       </section>
       <div className="absolute right-2 bottom-2 md:top-2 ">
-        <Heart/>
-        <Bookmark/>
+        <Heart />
+        <Bookmark />
       </div>
     </div>
   );
