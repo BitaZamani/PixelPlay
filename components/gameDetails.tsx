@@ -122,6 +122,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
         </Table>
       </section>
       <section>
+      <Divider name="Screenshots" />
         <Carousel>
           <CarouselContent>
             <CarouselPrevious />
