@@ -64,18 +64,9 @@ export async function fetchGenres(page:number) {
 
 
 export async function fetchGames(queryString:string) {
-    const url = `${BASE_URL}/games?key=${
-        API_KEY
-      }&${queryString}`;
-      const options = {
-        method: "GET",
-        // headers: {
-        //   "x-rapidapi-key": RAPID_KEY || "",
-        //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
-        // },
-      };
     
-      const response = await fetch(url, options);
+    
+      const response = await fetch(`/api/games?${queryString}`);
       const data = await response.json();
       return data
 }
