@@ -126,7 +126,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
       </section>
       <section>
         <Divider name="Screenshots" />
-        <Carousel>
+        <Carousel className="h-350px">
           <CarouselPrevious />
           <CarouselContent>
             {screens?.results.map((screen) => (
