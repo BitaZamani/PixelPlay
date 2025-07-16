@@ -1,30 +1,27 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchGames } from "@/lib/API";
 
-interface Games{
-    results: {
-        id: number;
-        name: string;
-        metacritic:number,
-        background_image:string
-      }[]
-    count:number
+interface Games {
+  results: {
+    id: number;
+    name: string;
+    metacritic: number;
+    background_image: string;
+  }[];
+  count: number;
 }
+
 interface GameState {
   allGames: Games;
-  filteredGames: Games;
   status: "idle" | "pending" | "succeeded" | "failed";
   error: string | null;
-  search: string;
   page: number;
 }
 
 const initialState: GameState = {
-    allGames: { results: [], count: 0 },
-    filteredGames: { results: [], count: 0 },
+  allGames: { results: [], count: 0 },
   status: "idle",
   error: null,
-  search: "",
   page: 1,
 };
 
@@ -37,39 +34,29 @@ export const fetchAllGames = createAsyncThunk(
 );
 
 const gameSlice = createSlice({
-    name: "games",
-    initialState,
-    reducers: {
-      setSearch: (state, action: PayloadAction<string>) => {
-        state.search = action.payload;
-        state.filteredGames = {
-          ...state.allGames,
-          results: state.allGames.results.filter((game) =>
-            game.name.toLowerCase().includes(action.payload.toLowerCase())
-          ),
-        };
-      },
-      setPage: (state, action: PayloadAction<number>) => {
-        state.page = action.payload;
-      },
+  name: "games",
+  initialState,
+  reducers: {
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
     },
-    extraReducers: (builder) => {
-      builder
-        .addCase(fetchAllGames.pending, (state) => {
-          state.status = "pending";
-          state.error = null;
-        })
-        .addCase(fetchAllGames.fulfilled, (state, action) => {
-          state.status = "succeeded";
-          state.allGames = action.payload;
-          state.filteredGames = action.payload;
-        })
-        .addCase(fetchAllGames.rejected, (state, action) => {
-          state.status = "failed";
-          state.error = action.error.message || "Something went wrong";
-        });
-    },
-  });
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAllGames.pending, (state) => {
+        state.status = "pending";
+        state.error = null;
+      })
+      .addCase(fetchAllGames.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.allGames = action.payload;
+      })
+      .addCase(fetchAllGames.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Something went wrong";
+      });
+  },
+});
 
-export const { setSearch, setPage } = gameSlice.actions;
+export const { setPage } = gameSlice.actions;
 export default gameSlice.reducer;

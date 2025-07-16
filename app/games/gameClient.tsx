@@ -1,31 +1,51 @@
 "use client";
 
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllGames } from "@/lib/Redux/stateManagements/fetchGames";
 import { AppDispatch, RootState } from "@/lib/Redux/store";
 import GamesGrid from "@/components/gamesGrid";
 import Image from "next/image";
-import Search from "@/components/ui/search";
+import { useEffect, useRef, useState } from "react";
+import { fetchAllGames } from "@/lib/Redux/stateManagements/fetchGames";
 
 interface Props {
   page: number;
   search: string;
 }
 
-export default function GamesClient({ page, search }: Props) {
+export default function GamesClient({ page }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const { filteredGames, status, error } = useSelector(
     (state: RootState) => state.games
   );
 
-  useEffect(() => {
-    const query = new URLSearchParams();
-    if (search) query.set("search", search);
-    query.set("page", page.toString());
+  const [input, setInput] = useState("");
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    dispatch(fetchAllGames(query.toString()));
-  }, [dispatch, search, page]);
+  useEffect(() => {
+    // debounce
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      const query = new URLSearchParams();
+      if (input) query.set("search", input);
+      query.set("page", "1");
+
+      dispatch(fetchAllGames(query.toString()));
+    }, 500);
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [input, dispatch]);
+
+  // initial fetch on mount or page change (without search)
+  useEffect(() => {
+    if (!input) {
+      const query = new URLSearchParams();
+      query.set("page", page.toString());
+      dispatch(fetchAllGames(query.toString()));
+    }
+  }, [page, dispatch]);
 
   if (status === "pending") return <p>Loading...</p>;
   if (status === "failed") return <p>Error: {error}</p>;
@@ -50,7 +70,12 @@ export default function GamesClient({ page, search }: Props) {
           </span>
 
           <div className="flex flex-wrap gap-4 justify-center items-center">
-            <Search />
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Search games..."
+              className="px-3 py-1 rounded bg-black text-white border border-purple-500"
+            />
           </div>
         </div>
       </div>
