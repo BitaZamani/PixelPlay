@@ -10,7 +10,7 @@ import {
   setPage,
 } from "@/lib/Redux/stateManagements/fetchGames";
 
-export default function GamesClient(pageNum: number) {
+export default function GamesClient({ pageNum }: { pageNum: number }) {
   const dispatch = useDispatch<AppDispatch>();
   const { allGames, status, error, page } = useSelector(
     (state: RootState) => state.games
