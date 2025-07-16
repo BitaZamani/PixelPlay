@@ -5,16 +5,14 @@ import { AppDispatch, RootState } from "@/lib/Redux/store";
 import GamesGrid from "@/components/gamesGrid";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { fetchAllGames } from "@/lib/Redux/stateManagements/fetchGames";
+import {
+  fetchAllGames,
+  setPage,
+} from "@/lib/Redux/stateManagements/fetchGames";
 
-interface Props {
-  page: number;
-  search: string;
-}
-
-export default function GamesClient({ page }: Props) {
+export default function GamesClient(pageNum: number) {
   const dispatch = useDispatch<AppDispatch>();
-  const { allGames, status, error } = useSelector(
+  const { allGames, status, error, page } = useSelector(
     (state: RootState) => state.games
   );
 
@@ -22,13 +20,12 @@ export default function GamesClient({ page }: Props) {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // debounce
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
       const query = new URLSearchParams();
       if (input) query.set("search", input);
-      query.set("page", "1");
+      dispatch(setPage(1));
 
       dispatch(fetchAllGames(query.toString()));
     }, 500);
@@ -45,7 +42,7 @@ export default function GamesClient({ page }: Props) {
       query.set("page", page.toString());
       dispatch(fetchAllGames(query.toString()));
     }
-  }, [page, dispatch]);
+  }, [page, dispatch, input]);
 
   if (status === "pending") return <p>Loading...</p>;
   if (status === "failed") return <p>Error: {error}</p>;
@@ -82,7 +79,7 @@ export default function GamesClient({ page }: Props) {
       <GamesGrid
         games={allGames}
         count={allGames.count}
-        page={page}
+        page={pageNum}
         urlBase="games"
       />
     </div>
