@@ -14,7 +14,7 @@ interface Props {
 
 export default function GamesClient({ page }: Props) {
   const dispatch = useDispatch<AppDispatch>();
-  const { filteredGames, status, error } = useSelector(
+  const { allGames, status, error } = useSelector(
     (state: RootState) => state.games
   );
 
@@ -80,8 +80,8 @@ export default function GamesClient({ page }: Props) {
         </div>
       </div>
       <GamesGrid
-        games={filteredGames}
-        count={filteredGames.count}
+        games={allGames}
+        count={allGames.count}
         page={page}
         urlBase="games"
       />
