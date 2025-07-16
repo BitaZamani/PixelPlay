@@ -1,7 +1,8 @@
+//const BASE_URL = "https://rawg-video-games-database.p.rapidapi.com";
 const BASE_URL = "https://api.rawg.io/api"
 
 const API_KEY = process.env.RAWG_API_KEY || "";
-const RAPID_KEY = process.env.RAPIDAPI_KEY || "";
+//const RAPID_KEY = process.env.RAPIDAPI_KEY || "";
 
 
 
@@ -10,7 +11,7 @@ export async function fetchPlatforms(page:number) {
         API_KEY
       }&page=${page}&page_size=${20}`;
       const options = {
-        // method: "GET",
+        method: "GET",
         // headers: {
         //   "x-rapidapi-key": RAPID_KEY || "",
         //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -29,7 +30,7 @@ export async function fetchPublishers(page:number) {
         API_KEY
       }&page=${page}&page_size=${20}`;
       const options = {
-        // method: "GET",
+        method: "GET",
         // headers: {
         //   "x-rapidapi-key": RAPID_KEY || "",
         //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -48,7 +49,7 @@ export async function fetchGenres(page:number) {
         API_KEY
       }&page=${page}`;
       const options = {
-        // method: "GET",
+        method: "GET",
         // headers: {
         //   "x-rapidapi-key": RAPID_KEY || "",
         //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -62,17 +63,16 @@ export async function fetchGenres(page:number) {
 }
 
 
-export async function fetchGames(page:number) {
+export async function fetchGames(queryString:string) {
     const url = `${BASE_URL}/games?key=${
         API_KEY
-      }&page=${page}`;
+      }&${queryString}`;
       const options = {
-        // method: "GET",
+        method: "GET",
         // headers: {
         //   "x-rapidapi-key": RAPID_KEY || "",
         //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
         // },
-        next: { revalidate: 86400 },
       };
     
       const response = await fetch(url, options);
@@ -88,7 +88,7 @@ export async function fetchAGenre(page:number,id:number) {
         API_KEY
       }&page=${page}`;
       const options = {
-        // method: "GET",
+        method: "GET",
         // headers: {
         //   "x-rapidapi-key": RAPID_KEY || "",
         //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -115,7 +115,7 @@ export async function fetchAPlatform(page:number,id:number) {
         API_KEY
       }&page=${page}`;
       const options = {
-        // method: "GET",
+        method: "GET",
         // headers: {
         //   "x-rapidapi-key": RAPID_KEY || "",
         //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -140,7 +140,7 @@ export async function fetchAPublisher(page:number,id:number) {
         API_KEY
       }&page=${page}`;
       const options = {
-        // method: "GET",
+        method: "GET",
         // headers: {
         //   "x-rapidapi-key": RAPID_KEY || "",
         //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -167,15 +167,25 @@ export async function fetchAGame(id:number) {
   }`;
   const options = {
     method: "GET",
-    headers: {
-      "x-rapidapi-key": RAPID_KEY || "",
-      "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
-    },
+    // headers: {
+    //   "x-rapidapi-key": RAPID_KEY || "",
+    //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+    // },
   };
 
-  const [response,response2] = await Promise.all ([fetch(url, options), fetch(screenUrl,options)]);
+   const [response,response2] = await Promise.all ([fetch(url, options), fetch(screenUrl,options)]);
 
-  const [data, screens] = await Promise.all ([response.json(),response2.json()]);
+   const [data, screens] = await Promise.all ([response.json(),response2.json()]);
   return {data, screens}
+  //const response = await fetch(url,options)
+  // const data = await response.json()
+  // return data
   
 }
+
+
+
+
+
+
+

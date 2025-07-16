@@ -5,7 +5,7 @@ import React from "react";
 
 const CategoriesSection = () => {
   const categories = [
-    { name: "games", pic: "/categories/games.jpg" },
+    //{ name: "games", pic: "/categories/games.jpg" },
     { name: "genres", pic: "/categories/genres.jpg" },
     { name: "platforms", pic: "/categories/platforms.jpg" },
     { name: "publishers", pic: "/categories/publishers.jpg" },
@@ -16,12 +16,12 @@ const CategoriesSection = () => {
         <Gamepad2 color="purple" size={"30px"} />
         <span className="text-purple-100">Popular Categories</span>
       </div>
-      <section className="grid grid-cols-4 grid-rows-6 h-[600px] gap-2.5 my-5 md:grid-cols-8">
+      <section className="grid grid-cols-3  h-[280px] gap-2.5 my-5">
         {categories.map((category, index) => (
           <Link
             href={`/${category.name}`}
             key={index}
-            className="relative overflow-hidden md:row-span-3 group row-span-2 col-span-2"
+            className="relative overflow-hidden  col-span-1"
           >
             <Image
               src={category.pic}

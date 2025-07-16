@@ -1,44 +1,64 @@
-import Banner from "@/components/banner";
-import PaginationSection from "@/components/paginationSection";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { fetchGames } from "@/lib/API";
-import { Game, PropsSearch } from "@/lib/types";
+"use client";
+
+import GamesGrid from "@/components/gamesGrid";
+import Search from "@/components/ui/search";
+import { fetchAllGames } from "@/lib/Redux/stateManagements/fetchGames";
+import { AppDispatch, RootState } from "@/lib/Redux/store";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const Games = async ({ searchParams }: PropsSearch) => {
-  const searchParam = await searchParams;
-  const page = Number(searchParam.page) || 1;
+const Games = () => {
+  const queryString = useSearchParams();
+  const page = Number(queryString.get("page")) || 1;
+  const search = queryString.get("search") || "";
+  const dispatch = useDispatch<AppDispatch>();
+  const { filteredGames } = useSelector(
+    (state: RootState) => state.games
+  );
 
-  const data = await fetchGames(page);
+  useEffect(() => {
+    const query = new URLSearchParams();
+    if (search) query.set("search", search);
+    query.set("page", page.toString());
+
+    dispatch(fetchAllGames(query.toString()));
+  }, [dispatch, search, page]);
   return (
     <div className="my-5">
-      <Banner name="Games" src={"/pagesBanner/games.jpg"} />
+      {/* بنر بالای صفحه */}
+      <div className="overflow-hidden relative h-[200px] md:h-[350px]">
+        <div className="h-full">
+          <div className="bg-black opacity-60 z-10 h-full w-full absolute top-0" />
+          <Image
+            src={"/pagesBanner/games.jpg"}
+            fill
+            alt="Games Banner"
+            className="object-cover"
+            unoptimized
+          />
+        </div>
 
-      <section className="grid grid-cols-2 md:gap-8 gap-4 md:grid-cols-4 lg:grid-cols-5 mt-4">
-        {data.results?.map((game: Game) => (
-          <Link key={game.id} href={`games/${game.id}`}>
-            <Card className="h-[200px] relative hover:scale-105 transition-all duration-300">
-              <CardContent>
-                <Image
-                  src={game.background_image}
-                  alt={`${game.name}`}
-                  height={200}
-                  width={200}
-                  unoptimized
-                  className="w-full h-32"
-                />
-                <span className="absolute top-2 right-3.5 bg-purple-200 rounded-full text-xs font-extralight size-8 flex justify-center items-center border border-purple-500">
-                  {game.metacritic}
-                </span>
-                <CardTitle className="text-xs pt-2">{game.name}</CardTitle>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </section>
-        <PaginationSection count={data.count} page={page} urlBase="games" />
+        <div className="absolute bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 z-20 text-center space-y-4">
+          <span className="text-3xl md:text-5xl text-purple-100 block">
+            Games
+          </span>
+
+          <div className="flex flex-wrap gap-4 justify-center items-center">
+            <Search />
+          </div>
+        </div>
+      </div>
+
+      {/* ادامه صفحه */}
+      {/* <Banner name="Games" src={"/pagesBanner/games.jpg"} /> */}
+      <GamesGrid
+        games={filteredGames}
+        count={filteredGames.count}
+        page={page}
+        urlBase="games"
+      />
     </div>
   );
 };

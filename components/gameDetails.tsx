@@ -22,12 +22,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
-import { useEffect } from "react";
 
 const GameDetails = ({ data, screens }: GameDetailProps) => {
-  useEffect(() => {
-    console.log(screens);
-  }, [screens]);
   const openImages = (url: string) => {
     window.open(url, "_blank");
   };
@@ -107,7 +103,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
       <section>
         <Divider name="Platforms" />
 
-        <Table>
+        <Table className="md:p-14">
           <TableHeader>
             <TableRow>
               <TableCell>Platform</TableCell>
@@ -142,7 +138,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
                     width={300}
                     height={300}
                     onClick={() => openImages(screen.image)}
-                    className="w-full h-full"
+                    className="w-full h-full cursor-pointer"
                   />
                 </div>
               </CarouselItem>
