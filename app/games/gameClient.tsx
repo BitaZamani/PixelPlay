@@ -10,7 +10,7 @@ import {
   setPage,
 } from "@/lib/Redux/stateManagements/fetchGames";
 
-export default function GamesClient({ pageNum }: { pageNum: number }) {
+export default function GamesClient() {
   const dispatch = useDispatch<AppDispatch>();
   const { allGames, status, error, page } = useSelector(
     (state: RootState) => state.games
@@ -79,7 +79,7 @@ export default function GamesClient({ pageNum }: { pageNum: number }) {
       <GamesGrid
         games={allGames}
         count={allGames.count}
-        page={pageNum}
+        page={page}
         urlBase="games"
       />
     </div>
