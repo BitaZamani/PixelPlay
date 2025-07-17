@@ -44,7 +44,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
   useEffect(() => {
     if (favorites.find((fave) => fave.id === data.id)) setIsFaved(true);
     if (bookmarks.find((mark) => mark.id === data.id)) setIsMarked(true);
-  });
+  }, []);
   return (
     <div className="p-2.5 bg-black text-purple-100">
       <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative">
