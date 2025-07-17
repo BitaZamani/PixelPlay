@@ -39,8 +39,8 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
             className="h-full w-auto translate-4"
           />
         </div>
-        <div className="flex flex-col md:flex-row gap-1.5">
-          <div className="flex flex-col justify-start w-full gap-3 text-sm">
+        <div className="flex flex-col md:flex-row gap-1.5 w-full">
+          <div className="flex flex-col justify-start w-1/2 gap-3 text-sm">
             <div className="space-x-1.5 text-xl">
               <span>{data.name}</span>
               <span>{data.released.split("-")[0]}</span>
@@ -66,7 +66,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
               <DrawerTrigger className="text-left underline underline-offset-4">
                 Read full description
               </DrawerTrigger>
-              <DrawerContent className="bg-primary text-purple-100">
+              <DrawerContent className="bg-purple-950 text-purple-100">
                 <DialogTitle>Description</DialogTitle>
                 <DrawerDescription>{data.description_raw}</DrawerDescription>
                 <DrawerFooter>
@@ -86,13 +86,22 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
                 ))}
               </span>
             </div>
-            {data.platforms.map((platform) => (
-              <div key={platform.platform.id}>
-                <Link href={`/platforms/${platform.platform.id}`}>
-                  {platform.platform.name}
-                </Link>
-              </div>
-            ))}
+            <div>
+              <span>Platforms: </span>
+              <span>
+                {data.platforms.map((platform) => (
+                  <>
+                    <Link
+                      href={`/platforms/${platform.platform.id}`}
+                      key={platform.platform.id}
+                    >
+                      {platform.platform.name}
+                    </Link>
+                    <span className="px-1">-</span>
+                  </>
+                ))}
+              </span>
+            </div>
           </div>
         </div>
         <div className="absolute right-2 bottom-2 gap-2.5 flex">

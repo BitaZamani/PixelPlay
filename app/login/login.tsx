@@ -1,13 +1,15 @@
 import { Lock, Mail } from "lucide-react";
-import React, { FormEvent,  useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Input from "@/components/ui/input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { logIn } from "@/lib/Redux/features/auth/authSlice";
 import { showToast } from "@/components/ui/toasts";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const userPassword = "1234";
   const userEmail = "example@example.com";
@@ -17,6 +19,7 @@ const Login = () => {
     e.preventDefault();
     if (email === userEmail && password === userPassword) {
       dispatch(logIn({ name: "John Doe", email: userEmail }));
+      router.push("/profile");
     } else if (email === "" || password === "") {
       showToast({ description: "Please fill the inputs.", variant: "warning" });
     } else {

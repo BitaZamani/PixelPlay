@@ -7,7 +7,7 @@ type ErrorMessageProps = {
 };
 const ErrorMessage = ({ message, onRetry }: ErrorMessageProps) => {
   return (
-    <div className="flex items-center justify-center flex-col p-8 space-y-4 h-[calc(100vh-250px)]">
+    <div className="flex items-center justify-center flex-col p-8 space-y-4 min-h-[calc(100vh-250px)]">
       <div className="flex justify-center items-center w-[300px]">
         <Image
           src={"/error.png"}

@@ -21,7 +21,7 @@ const authSlice = createSlice({
             state.isLoggedIn=true
             state.name=action.payload.name
             state.email=action.payload.email
-            state.favorites.push({ id: 10213 })
+            state.favorites=[{ id: 10213 },{ id: 1 },{ id: 51 }]
         },
         logOut:(state)=>{
             state.isLoggedIn=false

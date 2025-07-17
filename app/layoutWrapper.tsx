@@ -14,29 +14,41 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
     <body
       className={`antialiased bg-black pattern-cross-dots-md pattern-color-purple-700`}
     >
-      <div className={`${pathName === "/" && "bg-purple-950 "} `}>
-        <div className="w-11/12 mx-auto">
-          <Menu className={`${pathName === "/login" ? "hidden" : "block bg-purple-950"}`} />
-          <div className={`${pathName === "/" ? "block " : "hidden"}`}>
-            <HeroSection />
+      <StoreProvider>
+        <div className={`${pathName === "/" && "bg-purple-950 "} `}>
+          <div className="w-11/12 mx-auto">
+            <Menu
+              className={`${
+                pathName === ("/login" || "/profile")
+                  ? "hidden"
+                  : "block bg-purple-950"
+              }`}
+            />
+            <div className={`${pathName === "/" ? "block " : "hidden"}`}>
+              <HeroSection />
+            </div>
           </div>
         </div>
-      </div>
-      <div className={`absolute w-full -z-10 ${pathName !== "/" && "hidden"}`}>
-        <Image
-          src="/layerd.svg"
-          alt="Layered background"
-          width={0}
-          height={0}
-          className="w-full h-auto"
-          priority
-        />
-      </div>
-      <StoreProvider>
+        <div
+          className={`absolute w-full -z-10 ${pathName !== "/" && "hidden"}`}
+        >
+          <Image
+            src="/layerd.svg"
+            alt="Layered background"
+            width={0}
+            height={0}
+            className="w-full h-auto"
+            priority
+          />
+        </div>
         <div className="w-11/12 mx-auto my-5">{children}</div>
         <Toaster />
+        <Footer
+          className={`${
+            pathName === ("/login" || "/profile") ? "hidden" : "block"
+          }`}
+        />
       </StoreProvider>
-      <Footer className={`${pathName === "/login" ? "hidden" : "block"}`} />
     </body>
   );
 };

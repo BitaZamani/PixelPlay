@@ -130,19 +130,13 @@ export async function fetchAGame(id:number) {
   }`;
   const options = {
     method: "GET",
-    // headers: {
-    //   "x-rapidapi-key": RAPID_KEY || "",
-    //   "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
-    // },
   };
 
    const [response,response2] = await Promise.all ([fetch(url, options), fetch(screenUrl,options)]);
 
    const [data, screens] = await Promise.all ([response.json(),response2.json()]);
   return {data, screens}
-  //const response = await fetch(url,options)
-  // const data = await response.json()
-  // return data
+
   
 }
 
