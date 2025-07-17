@@ -12,7 +12,6 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import Link from "next/link";
 import { Bookmark, Heart } from "lucide-react";
 import { GameDetailProps } from "@/lib/types";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import Divider from "../ui/divider";
 import {
   Carousel,
@@ -21,11 +20,31 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import FullTooltip from "../ui/fullTooltip";
+import { useEffect, useState } from "react";
+import { RootState } from "@/lib/Redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addBookmark,
+  addFavorite,
+  removeBookmark,
+  removeFavorite,
+} from "@/lib/Redux/features/auth/authSlice";
 
 const GameDetails = ({ data, screens }: GameDetailProps) => {
   const openImages = (url: string) => {
     window.open(url, "_blank");
   };
+  const { bookmarks, favorites } = useSelector(
+    (state: RootState) => state.auth
+  );
+  const dispatch = useDispatch();
+  const [isfaved, setIsFaved] = useState(false);
+  const [isMarked, setIsMarked] = useState(false);
+  useEffect(() => {
+    if (favorites.find((fave) => fave.id === data.id)) setIsFaved(true);
+    if (favorites.find((mark) => mark.id === data.id)) setIsMarked(true);
+  });
   return (
     <div className="p-2.5 bg-black text-purple-100">
       <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative">
@@ -105,18 +124,34 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
           </div>
         </div>
         <div className="absolute right-2 bottom-2 gap-2.5 flex">
-          <Tooltip>
-            <TooltipTrigger>
-              <Heart />
-            </TooltipTrigger>
-            <TooltipContent>Favorite</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger>
-              <Bookmark />
-            </TooltipTrigger>
-            <TooltipContent>Bookmark</TooltipContent>
-          </Tooltip>
+          <FullTooltip
+            trigger={<Heart className={`${isfaved ? "fill-red-600" : ""}`} />}
+            content={
+              isfaved
+                ? "Remove from your favorites. "
+                : "Add to your favorite games."
+            }
+            onClick={() =>
+              isfaved
+                ? dispatch(removeFavorite(data.id))
+                : dispatch(addFavorite(data))
+            }
+          />
+          <FullTooltip
+            trigger={
+              <Bookmark className={`${isMarked ? "fill-red-600" : ""}`} />
+            }
+            content={
+              isfaved
+                ? "Remove from your bookmarks. "
+                : "Add to your bookmarks."
+            }
+            onClick={() =>
+              isfaved
+                ? dispatch(removeBookmark(data.id))
+                : dispatch(addBookmark(data))
+            }
+          />
         </div>
       </section>
 

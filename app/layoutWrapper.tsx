@@ -45,7 +45,15 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
             priority
           />
         </div>
-        <div className="w-11/12 mx-auto my-5">{children}</div>
+        <div
+          className={` ${
+            pathName === "/login" || pathName === "/profile"
+              ? "w-full my-0"
+              : "w-11/12 mx-auto my-5"
+          }`}
+        >
+          {children}
+        </div>
         <Toaster />
         <Footer
           className={`${

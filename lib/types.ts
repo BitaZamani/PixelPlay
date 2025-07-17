@@ -47,6 +47,7 @@ export interface GamesGridProps{
   
   export interface GameDetailProps {
     data:{
+      id:number;
       background_image: string;
       name: string;
       released: string;
@@ -71,6 +72,23 @@ export interface GamesGridProps{
     setValue: React.Dispatch<React.SetStateAction<string>>;
     id: string;
   };
+
+  export type ToolTipProps = {
+    onClick?: ()=>void;
+    content: string;
+    trigger:ReactNode|string;
+    className?: string;
+  }
+
+  export type CollectionGridProps = {
+    games: {
+      name: string;
+      background_image: string;
+      id: number;
+    }[];
+    length: number;
+  };
+  
 
 
 

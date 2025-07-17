@@ -11,13 +11,22 @@ import { Button } from "../ui/button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/Redux/store";
 import { User2 } from "lucide-react";
+import { useEffect, useState } from "react";
 const Menu = ({ className }: { className: string | undefined }) => {
   const menuItems = [
     { label: "Home", address: "/" },
     { label: "Games", address: "/games" },
     { label: "About Me", address: "/aboutme" },
   ];
+
+  const [hasHydrated, setHasHydrated] = useState(false);
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    setHasHydrated(true);
+  }, []);
+
+  if (!hasHydrated) return null;
   return (
     <NavigationMenu className={`mt-3 ${className}`}>
       <NavigationMenuList className="justify-between">
