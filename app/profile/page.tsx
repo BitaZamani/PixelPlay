@@ -38,9 +38,8 @@ const ProfilePage = () => {
   }, [favorites]);
   useEffect(() => {
     const fetchBookmarks = async () => {
-      console.log(favorites);
       if (bookmarks.length === 0) {
-        setFaveData([]);
+        setBookmarkData([]);
         return;
       }
       console.log("111111");
@@ -57,9 +56,8 @@ const ProfilePage = () => {
         console.error("Failed to fetch favorites", err);
       }
     };
-    console.log(favorites);
     fetchBookmarks();
-  }, [bookmarkData]);
+  }, [bookmarks]);
   return (
     <div className=" p-6 w-full h-full border rounded shadow-sm bg-white">
       <div className="flex items-center space-x-6">
