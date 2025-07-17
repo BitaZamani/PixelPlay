@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type PropsSearch = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
   };
@@ -21,6 +23,7 @@ export type Props = {
     name: string,
     data:Category,
     page:number
+    onPageChange?: (page: number) => void;
   }
  export interface Games {
     results: {
@@ -60,7 +63,14 @@ export interface GamesGridProps{
     }
   };
   
-  
+  export type InputProps = {
+    text: string;
+    type: string;
+    icon?: ReactNode;
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+    id: string;
+  };
 
 
 

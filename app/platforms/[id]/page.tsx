@@ -1,15 +1,33 @@
 import { fetchAPlatform } from "@/lib/API";
 import React from "react";
-import Banner from "@/components/banner";
-import {  Props } from "@/lib/types";
-import GamesGrid from "@/components/gamesGrid";
+import Banner from "@/components/pageSections/banner";
+import { Props } from "@/lib/types";
+import GamesGrid from "@/components/pageSections/gamesGrid";
+import GridSkeleton from "@/components/states/gridSkeleton";
+import ErrorMessage from "@/components/states/errorMessage";
 const Platform = async ({ searchParams, params }: Props) => {
   const searchParam = await searchParams;
   const param = await params;
   const page = Number(searchParam.page || 1);
   const id = Number(param.id);
 
-  const { data, games } = await fetchAPlatform(page, id);
+  let data;
+  let games;
+  let err: string | null = null;
+  let result;
+  try {
+    result = await fetchAPlatform(page, id);
+    data = result.data;
+    games = result.games;
+  } catch (error) {
+    if (error instanceof Error) {
+      err = error.message;
+    } else {
+      err = "Something went wrong";
+    }
+  }
+  if (!result) return <GridSkeleton length={10} />;
+  if (err) return <ErrorMessage message={err} />;
 
   return (
     <div>

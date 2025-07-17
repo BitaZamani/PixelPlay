@@ -2,17 +2,16 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/Redux/store";
-import GamesGrid from "@/components/gamesGrid";
+import GamesGrid from "@/components/pageSections/gamesGrid";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import {
-  fetchAllGames,
-  setPage,
-} from "@/lib/Redux/stateManagements/fetchGames";
+import { fetchAllGames } from "@/lib/Redux/features/games/gamesSlice";
+import ErrorMessage from "@/components/states/errorMessage";
+import GridSkeleton from "@/components/states/gridSkeleton";
 
-export default function GamesClient() {
+export default function GamesClient({ page }: { page: number }) {
   const dispatch = useDispatch<AppDispatch>();
-  const { allGames, status, error, page } = useSelector(
+  const { allGames, status, error } = useSelector(
     (state: RootState) => state.games
   );
 
@@ -25,7 +24,7 @@ export default function GamesClient() {
     timeoutRef.current = setTimeout(() => {
       const query = new URLSearchParams();
       if (input) query.set("search", input);
-      dispatch(setPage(1));
+      query.set("page", "1");
 
       dispatch(fetchAllGames(query.toString()));
     }, 500);
@@ -35,7 +34,6 @@ export default function GamesClient() {
     };
   }, [input, dispatch]);
 
-  // initial fetch on mount or page change (without search)
   useEffect(() => {
     if (!input) {
       const query = new URLSearchParams();
@@ -44,8 +42,19 @@ export default function GamesClient() {
     }
   }, [page, dispatch, input]);
 
-  if (status === "pending") return <p>Loading...</p>;
-  if (status === "failed") return <p>Error: {error}</p>;
+  if (status === "pending") return <GridSkeleton length={10} />;
+  if (status === "failed")
+    return (
+      <ErrorMessage
+        message={error}
+        onRetry={() => {
+          const query = new URLSearchParams();
+          if (input) query.set("search", input);
+          query.set("page", page.toString());
+          dispatch(fetchAllGames(query.toString()));
+        }}
+      />
+    );
 
   return (
     <div>

@@ -1,9 +1,12 @@
+import { PropsSearch } from "@/lib/types";
 import GamesClient from "./gameClient";
 
-const Games = async () => {
+const Games = async ({ searchParams }: PropsSearch) => {
+  const searchParam = await searchParams;
+  const page = Number(searchParam.page) || 1;
   return (
     <div className="my-5">
-      <GamesClient />
+      <GamesClient page={page} />
     </div>
   );
 };

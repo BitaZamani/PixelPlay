@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import gameReducer from "./stateManagements/fetchGames"
+import gameReducer from "./features/games/gamesSlice"
+import authReducer from "./features/auth/authSlice"
 export const makeStore = () => {
   return configureStore({
     reducer: {
         games: gameReducer,
+        auth: authReducer,
     }
   })
 }

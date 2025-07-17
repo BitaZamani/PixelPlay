@@ -1,11 +1,11 @@
-
-import CategoriesSection from "@/components/categoriesSection";
-
+import AboutMeSection from "@/components/section/aboutMeSection";
+import CategoriesSection from "@/components/section/categoriesSection";
 
 export default function Home() {
   return (
-   <div>
-    <CategoriesSection/>
-   </div>
+    <div>
+      <CategoriesSection />
+      <AboutMeSection />
+    </div>
   );
 }

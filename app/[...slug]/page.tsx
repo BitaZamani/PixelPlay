@@ -1,4 +1,4 @@
-import GameDetails from "@/components/gameDetails";
+import GameDetails from "@/components/pageSections/gameDetails";
 import { fetchAGame } from "@/lib/API";
 import { Props } from "@/lib/types";
 import React from "react";
@@ -11,10 +11,9 @@ const Game = async ({ params }: Props) => {
   else if (slug?.length === 4 && slug[2] === "games")
     id = slug[slug.length - 1];
   const { data, screens } = await fetchAGame(Number(id));
-  //const data = await fetchAGame(Number(id));
 
   return (
-    <div className="">
+    <div>
       <GameDetails data={data} screens={screens} />
     </div>
   );
