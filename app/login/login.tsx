@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Lock, Mail } from "lucide-react";
 import React, { FormEvent, useState } from "react";
 import Input from "@/components/ui/input";
@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { logIn } from "@/lib/Redux/features/auth/authSlice";
 import { showToast } from "@/components/ui/toasts";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const router = useRouter();
