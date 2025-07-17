@@ -13,9 +13,9 @@ const GamesGrid = ({ games, page, id, urlBase, count }: GamesGridProps) => {
           <Link
             key={game.id}
             href={`${
-              urlBase
+              urlBase !== "games"
                 ? `/${urlBase}/${id}/games/${game.id}`
-                : `/${urlBase}/games/${game.id}`
+                : `/games/${game.id}`
             }`}
           >
             <Card className="h-[200px] relative hover:scale-105 transition-all duration-300">
