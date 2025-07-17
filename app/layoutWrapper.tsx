@@ -12,7 +12,7 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
   const pathName = usePathname();
   return (
     <body
-      className={`antialiased bg-black pattern-cross-dots-md pattern-color-purple-700`}
+      className={`antialiased bg-black pattern-cross-dots-md pattern-color-purple-700 min-h-screen`}
     >
       <StoreProvider>
         <div className={`${pathName === "/" && "bg-purple-950 "} `}>
@@ -46,7 +46,7 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
           />
         </div>
         <div
-          className={` ${
+          className={`flex-1 ${
             pathName === "/login" || pathName === "/profile"
               ? "w-full my-0 bg-gradient-to-tr from-black to-purple-950"
               : "w-11/12 mx-auto my-5"
