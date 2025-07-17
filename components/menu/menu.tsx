@@ -15,7 +15,7 @@ const Menu = ({ className }: { className: string | undefined }) => {
   ];
 
   return (
-    <NavigationMenu className={`pt-3 ${className}`}>
+    <NavigationMenu className={`mt-3 ${className}`}>
       <NavigationMenuList className="justify-between">
         <NavigationMenuItem>
           <NavigationMenuLink asChild>

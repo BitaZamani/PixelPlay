@@ -10,7 +10,7 @@ const Banner = ({
 }) => {
   console.log(src);
   return (
-    <div className="overflow-hidden relative h-[200px] md:h-[350px]">
+    <div className="overflow-hidden relative h-[200px] md:h-[350px] my-2">
       <div className="h-full">
         <div className="bg-black opacity-60 z-10 h-full w-full absolute top-0" />
         <Image src={src} fill alt="" className="object-cover " unoptimized />

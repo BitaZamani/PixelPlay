@@ -16,7 +16,7 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
     >
       <div className={`${pathName === "/" && "bg-purple-950 "} `}>
         <div className="w-11/12 mx-auto">
-          <Menu className={`${pathName === "/login" ? "hidden" : "block"}`} />
+          <Menu className={`${pathName === "/login" ? "hidden" : "block bg-purple-950"}`} />
           <div className={`${pathName === "/" ? "block " : "hidden"}`}>
             <HeroSection />
           </div>
