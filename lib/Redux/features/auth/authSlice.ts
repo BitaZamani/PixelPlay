@@ -60,7 +60,9 @@ const authSlice = createSlice({
             state.name=""
             state.favorites=[]
             state.bookmarks = [];
-            localStorage.clear()
+            localStorage.removeItem("user");
+            localStorage.removeItem("userFavorites");
+            localStorage.removeItem("userBookmarks");
         },
         addFavorite: (state, action: PayloadAction<{ id: number; background_image: string; name: string }>) => {
             if (!state.favorites.find((favorite) => favorite.id === action.payload.id)) {

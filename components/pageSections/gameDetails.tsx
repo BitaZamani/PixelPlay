@@ -21,7 +21,6 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import FullTooltip from "../ui/fullTooltip";
-import { useEffect, useState } from "react";
 import { RootState } from "@/lib/Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -39,17 +38,10 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
     (state: RootState) => state.auth
   );
   const dispatch = useDispatch();
-  const [isfaved, setIsFaved] = useState(false);
-  const [isMarked, setIsMarked] = useState(false);
-  useEffect(() => {
-    localStorage.setItem("userFavorites", JSON.stringify({ favorites }));
-    localStorage.setItem("userBookmarks", JSON.stringify(bookmarks));
-  }, [favorites, bookmarks]);
 
-  useEffect(() => {
-    if (favorites.find((fave) => fave.id === data.id)) setIsFaved(true);
-    if (bookmarks.find((mark) => mark.id === data.id)) setIsMarked(true);
-  }, [bookmarks, data.id, favorites]);
+  const isfaved = favorites.some((f) => f.id === data.id);
+  const isMarked = bookmarks.some((b) => b.id === data.id);
+
   return (
     <div className="p-2.5 bg-black text-purple-100">
       <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative">
@@ -137,7 +129,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
                 : "Add to your favorite games."
             }
             onClick={() =>
-              isMarked
+              isfaved
                 ? dispatch(removeFavorite(data.id))
                 : dispatch(addFavorite(data))
             }
@@ -152,7 +144,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
                 : "Add to your bookmarks."
             }
             onClick={() =>
-              isfaved
+              isMarked
                 ? dispatch(removeBookmark(data.id))
                 : dispatch(addBookmark(data))
             }
