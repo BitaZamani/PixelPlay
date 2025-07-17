@@ -1,3 +1,4 @@
+"use client";
 import { RootState } from "@/lib/Redux/store";
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect } from "react";
