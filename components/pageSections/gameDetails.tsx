@@ -43,7 +43,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
   const [isMarked, setIsMarked] = useState(false);
   useEffect(() => {
     if (favorites.find((fave) => fave.id === data.id)) setIsFaved(true);
-    if (favorites.find((mark) => mark.id === data.id)) setIsMarked(true);
+    if (bookmarks.find((mark) => mark.id === data.id)) setIsMarked(true);
   });
   return (
     <div className="p-2.5 bg-black text-purple-100">
