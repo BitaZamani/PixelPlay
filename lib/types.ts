@@ -91,4 +91,11 @@ export interface GamesGridProps{
   
 
 
-
+export type ModalProps = {
+trigger?: ReactNode| string 
+title: string
+isClose?: boolean
+description: string
+open: boolean;
+onOpenChange: (open: boolean) => void;
+}

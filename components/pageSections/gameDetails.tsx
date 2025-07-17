@@ -29,8 +29,11 @@ import {
   removeBookmark,
   removeFavorite,
 } from "@/lib/Redux/features/auth/authSlice";
+import { useState } from "react";
+import Modal from "../ui/modal";
 
 const GameDetails = ({ data, screens }: GameDetailProps) => {
+  const [showModal, setShowModal] = useState(false);
   const openImages = (url: string) => {
     window.open(url, "_blank");
   };
@@ -38,13 +41,29 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
     (state: RootState) => state.auth
   );
   const dispatch = useDispatch();
-
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   const isfaved = favorites.some((f) => f.id === data.id);
   const isMarked = bookmarks.some((b) => b.id === data.id);
+  const fave = () => {
+    if (isLoggedIn) {
+      if (isfaved) dispatch(removeFavorite(data.id));
+      else dispatch(addFavorite(data));
+    } else {
+      setShowModal(true);
+    }
+  };
+  const bookmark = () => {
+    if (isLoggedIn) {
+      if (isMarked) dispatch(removeBookmark(data.id));
+      else dispatch(addBookmark(data));
+    } else {
+      setShowModal(true);
+    }
+  };
 
   return (
     <div className="p-2.5 bg-black text-purple-100">
-      <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative">
+      <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative h-[calc(h-full + 50px)]">
         <div className="h-[200px] pattern-diagonal-lines-sm pattern-color-purple-100">
           <Image
             src={data.background_image}
@@ -120,7 +139,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
             </div>
           </div>
         </div>
-        <div className="absolute right-2 bottom-2 gap-2.5 flex">
+        <div className="absolute right-2 bottom-1 gap-2.5 flex">
           <FullTooltip
             trigger={<Heart className={`${isfaved ? "fill-red-600" : ""}`} />}
             content={
@@ -128,11 +147,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
                 ? "Remove from your favorites. "
                 : "Add to your favorite games."
             }
-            onClick={() =>
-              isfaved
-                ? dispatch(removeFavorite(data.id))
-                : dispatch(addFavorite(data))
-            }
+            onClick={fave}
           />
           <FullTooltip
             trigger={
@@ -143,15 +158,19 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
                 ? "Remove from your bookmarks. "
                 : "Add to your bookmarks."
             }
-            onClick={() =>
-              isMarked
-                ? dispatch(removeBookmark(data.id))
-                : dispatch(addBookmark(data))
-            }
+            onClick={bookmark}
           />
         </div>
       </section>
-
+      {showModal && (
+        <Modal
+          open={showModal}
+          onOpenChange={setShowModal}
+          title="Warning"
+          description="You can not add this game to your collections. First login."
+          isClose={true}
+        />
+      )}
       <section>
         <Divider name="Screenshots" />
         <Carousel>

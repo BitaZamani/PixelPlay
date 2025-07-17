@@ -1,60 +1,63 @@
 "use client";
 
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/lib/Redux/store";
 import GamesGrid from "@/components/pageSections/gamesGrid";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { fetchAllGames } from "@/lib/Redux/features/games/gamesSlice";
 import ErrorMessage from "@/components/states/errorMessage";
 import GridSkeleton from "@/components/states/gridSkeleton";
 
 export default function GamesClient({ page }: { page: number }) {
-  const dispatch = useDispatch<AppDispatch>();
-  const { allGames, status, error } = useSelector(
-    (state: RootState) => state.games
-  );
-
+  const [games, setGames] = useState([]);
+  const [count, setCount] = useState(0);
   const [input, setInput] = useState("");
+  const [status, setStatus] = useState<"pending" | "succeeded" | "failed">(
+    "pending"
+  );
+  const [error, setError] = useState<string | null>(null);
+
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const fetchGames = async (search: string, page: number) => {
+    setStatus("pending");
+    setError(null);
+    try {
+      const params = new URLSearchParams();
+      if (search) params.set("search", search);
+      params.set("page", page.toString());
+
+      const res = await fetch(`/api/games?${params.toString()}`);
+      if (!res.ok) throw new Error("Failed to fetch games");
+
+      const data = await res.json();
+      setGames(data.results || []);
+      setCount(data.count || 0);
+      setStatus("succeeded");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else setError("Something went Wrong.");
+      setStatus("failed");
+    }
+  };
 
   useEffect(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
-      const query = new URLSearchParams();
-      if (input) query.set("search", input);
-      query.set("page", "1");
-
-      dispatch(fetchAllGames(query.toString()));
+      fetchGames(input, 1);
     }, 500);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [input, dispatch]);
+  }, [input]);
 
   useEffect(() => {
-    if (!input) {
-      const query = new URLSearchParams();
-      query.set("page", page.toString());
-      dispatch(fetchAllGames(query.toString()));
-    }
-  }, [page, dispatch, input]);
+    if (!input) fetchGames("", page);
+  }, [page, input]);
 
   if (status === "pending") return <GridSkeleton length={10} />;
-  if (status === "failed")
-    return (
-      <ErrorMessage
-        message={error}
-        onRetry={() => {
-          const query = new URLSearchParams();
-          if (input) query.set("search", input);
-          query.set("page", page.toString());
-          dispatch(fetchAllGames(query.toString()));
-        }}
-      />
-    );
+  if (status === "failed") return <ErrorMessage message={error!} />;
 
   return (
     <div>
@@ -74,7 +77,6 @@ export default function GamesClient({ page }: { page: number }) {
           <span className="text-3xl md:text-5xl text-purple-100 block">
             Games
           </span>
-
           <div className="flex flex-wrap gap-4 justify-center items-center">
             <input
               value={input}
@@ -85,9 +87,10 @@ export default function GamesClient({ page }: { page: number }) {
           </div>
         </div>
       </div>
+
       <GamesGrid
-        games={allGames}
-        count={allGames.count}
+        games={{ results: games }}
+        count={count}
         page={page}
         urlBase="games"
       />

@@ -13,7 +13,7 @@ const CategoriesSection = () => {
   return (
     <section className="mt-[17vw]">
       <div className="text-xl md:text-3xl flex justify-center items-center">
-        <Gamepad2 color="purple" size={"30px"} />
+        <Gamepad2 className="text-purple-950" size={"30px"} />
         <span className="text-purple-100">Popular Categories</span>
       </div>
       <section className="grid grid-cols-3  h-[280px] gap-2.5 my-5">

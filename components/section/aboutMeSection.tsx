@@ -7,7 +7,7 @@ const AboutMeSection = () => {
   return (
     <div className=" text-purple-100 my-5">
       <div className="text-xl md:text-3xl flex justify-center items-center my-2">
-        <MessageCircleHeart color="purple" size={"30px"} />
+        <MessageCircleHeart className="text-purple-950" size={"30px"} />
         <span className="text-purple-100">About Me</span>
       </div>
 

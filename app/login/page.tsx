@@ -33,7 +33,7 @@ const Login = () => {
   return (
     <div>
       <div className="flex justify-center items-center h-screen">
-        <div className="bg-gradient-to-br from-black to-purple-950 w-5/6 max-w-[600px] h-[340px] relative">
+        <div className="backdrop-blur-2xl bg-black/50 w-5/6 max-w-[600px] h-[340px] relative">
           <h2 className="text-purple-100 my-5 text-3xl text-center">Login</h2>
           <form onSubmit={handleLogin}>
             <Input

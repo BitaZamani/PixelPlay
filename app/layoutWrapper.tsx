@@ -48,7 +48,7 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
         <div
           className={` ${
             pathName === "/login" || pathName === "/profile"
-              ? "w-full my-0"
+              ? "w-full my-0 bg-gradient-to-tr from-black to-purple-950"
               : "w-11/12 mx-auto my-5"
           }`}
         >

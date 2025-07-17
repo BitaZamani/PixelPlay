@@ -36,19 +36,13 @@ const AboutMe = () => {
         </div>
         <div>
           <p>
-            This project started as a personal challenge and was both a learning
-            playground and a passion project.
+            This project is a basic game site and started as a personal
+            challenge and was a learning playground..
           </p>
           <p>
-            It was my first time working with ShadCN UI and Redux Toolkit, both
-            of which pushed me to better understand component composition,
-            styling systems, and state management in a more scalable,
-            professional way.
-          </p>
-          <p>
-            My main goal with this project was to get more comfortable with
-            Next.js (App Router) and TypeScript, and to apply them in a
-            structured, feature-rich web app.
+            It was my first time working with ShadCN UI and Redux Toolkit. I
+            also tried to get more comfortable with Next.js (App Router) and
+            TypeScript.
           </p>
           Throughout the process, I focused on improving how I work with:
           <ul className="list-disc pl-10">
