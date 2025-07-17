@@ -4,10 +4,8 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <section className="pt-8 flex justify-center items-center gap-3 flex-col">
-      <span
-        className={`text-4xl  text-center md:text-7xl text-purple-100 font-bitcount`}
-      >
+    <section className="pt-8 px-3 flex justify-center items-center gap-3 flex-col">
+      <span className="text-4xl  text-center md:text-7xl text-purple-100 font-bitcount">
         Your Portal to Every Pixel
       </span>
       <span className="text-gray-200 text-center text-xs md:text-lg">

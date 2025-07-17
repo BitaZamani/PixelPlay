@@ -179,7 +179,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
             {screens?.results.map((screen) => (
               <CarouselItem
                 key={screen.id}
-                className="basis-1/2 md:basis-1/3 gap-3"
+                className="basis-1/2 md:basis-1/3 pl-5"
               >
                 <div className="w-[200px] md:w-[240px] gap-2 max-h-[140px] min-h-[140px]">
                   <Image

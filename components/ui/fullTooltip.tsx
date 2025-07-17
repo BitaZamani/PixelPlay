@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 import { ToolTipProps } from "@/lib/types";

@@ -1,4 +1,3 @@
-"use client";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -8,28 +7,24 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
-import { RootState } from "@/lib/Redux/store";
-import { User2 } from "lucide-react";
-import { useEffect, useState } from "react";
-const Menu = ({ className }: { className: string | undefined }) => {
+import { cookies } from "next/headers";
+import User from "./user";
+const Menu = async () => {
   const menuItems = [
     { label: "Home", address: "/" },
     { label: "Games", address: "/games" },
     { label: "About Me", address: "/aboutme" },
   ];
+  const cookie = await cookies();
+  const user = cookie.get("user");
+  let isLoggedIn = false;
+  if (user) {
+    isLoggedIn = JSON.parse(user.value).isLoggedIn;
+  }
 
-  const [hasHydrated, setHasHydrated] = useState(false);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-
-  useEffect(() => {
-    setHasHydrated(true);
-  }, []);
-
-  if (!hasHydrated) return null;
   return (
-    <NavigationMenu className={`mt-3 ${className}`}>
-      <NavigationMenuList className="justify-between">
+    <NavigationMenu className={`w-11/12 mx-auto`}>
+      <NavigationMenuList className="justify-between bg-purple-950">
         <NavigationMenuItem>
           <Image src={"/logo.svg"} width={50} height={50} alt="logo" />
         </NavigationMenuItem>
@@ -44,11 +39,7 @@ const Menu = ({ className }: { className: string | undefined }) => {
         </div>
         <NavigationMenuItem className="flex justify-end mr-2">
           {isLoggedIn ? (
-            <Button variant="default" className="text-black" size="sm">
-              <Link href={"/profile"}>
-                <User2 />
-              </Link>
-            </Button>
+            <User />
           ) : (
             <Button variant="default" className="text-black" size="sm">
               <Link href={"/login"}>Login</Link>

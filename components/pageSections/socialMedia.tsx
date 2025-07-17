@@ -1,3 +1,4 @@
+"use client";
 import { Github, Linkedin, Mail } from "lucide-react";
 import FullTooltip from "../ui/fullTooltip";
 

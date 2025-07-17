@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import SocialMedia from "../pageSections/socialMedia";
 
-const Footer = ({ className }: { className: string | undefined }) => {
+const Footer = () => {
   const menuItems = [
     { label: "Home", address: "/" },
     { label: "Games", address: "/games" },
@@ -12,7 +12,7 @@ const Footer = ({ className }: { className: string | undefined }) => {
 
   return (
     <div
-      className={`py-2 text-purple-100 rounded-t-2xl bg-purple-950 flex items-center justify-evenly relative ${className}`}
+      className={`text-purple-100 rounded-t-2xl bg-purple-950 flex items-center justify-evenly relative`}
     >
       <div>
         <span className="text-sm md:text-base">Quick Links</span>

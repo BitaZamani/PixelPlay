@@ -1,3 +1,4 @@
+import { deleteCookie, getCookie, setCookie } from "@/lib/cookies";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface Auth{
     isLoggedIn:boolean,
@@ -7,12 +8,14 @@ interface Auth{
     bookmarks: {id:number, background_image:string, name: string}[]
 }
 const getInitialState = (): Auth => {
+  const userInfo = getCookie("user")
+  if(userInfo){
     if (typeof window !== "undefined") {
       try {
-        const user = JSON.parse(localStorage.getItem("user") || "null");
+        const user = JSON.parse(userInfo);
         const favorites = JSON.parse(localStorage.getItem("userFavorites") || "null");
         const bookmarks = JSON.parse(localStorage.getItem("userBookmarks") || "null");
-  
+        
         return {
           isLoggedIn: user?.isLoggedIn || false,
           name: user?.name || "",
@@ -22,7 +25,18 @@ const getInitialState = (): Auth => {
         };
       } catch (e) {
         console.error("Error reading from localStorage", e);
+      } 
+    } else{
+      const user = JSON.parse(userInfo);
+      return{
+        isLoggedIn: user.isLoggedIn,
+        name: user.name,
+        email: user.email,
+        favorites: [],
+        bookmarks:  [],
       }
+
+    }
     }
   
     return {
@@ -45,11 +59,11 @@ const authSlice = createSlice({
             state.name=action.payload.name
             state.email=action.payload.email
             state.favorites=[{ id: 10213, background_image:"https://media.rawg.io/media/games/6fc/6fcf4cd3b17c288821388e6085bb0fc9.jpg",name:"Dota 2" },{ id: 2470 , name:"Mafia Mystery", background_image: "https://media.rawg.io/media/screenshots/687/68747a8a9806535eecce6a1b66b5467a.jpeg"},{ id: 9886, background_image:"https://media.rawg.io/media/screenshots/3cd/3cd824ee75612227ba95c072b8cb2d73.jpg",name:"Awaken" }]
-            localStorage.setItem("user", JSON.stringify(
-               { email: action.payload.email,
-                isLoggedIn: true,
-            name: action.payload.name}
-            ))
+            setCookie("user",JSON.stringify({
+              isLoggedIn:true,
+              name:action.payload.name,
+              email:action.payload.email
+            }))
             localStorage.setItem("userFavorites",JSON.stringify({
                 favorites: [{ id: 10213, background_image:"https://media.rawg.io/media/games/6fc/6fcf4cd3b17c288821388e6085bb0fc9.jpg",name:"Dota 2" },{ id: 2470 , name:"Mafia Mystery", background_image: "https://media.rawg.io/media/screenshots/687/68747a8a9806535eecce6a1b66b5467a.jpeg"},{ id: 9886, background_image:"https://media.rawg.io/media/screenshots/3cd/3cd824ee75612227ba95c072b8cb2d73.jpg",name:"Awaken" }]
             }))
@@ -60,7 +74,7 @@ const authSlice = createSlice({
             state.name=""
             state.favorites=[]
             state.bookmarks = [];
-            localStorage.removeItem("user");
+            deleteCookie("user")
             localStorage.removeItem("userFavorites");
             localStorage.removeItem("userBookmarks");
         },

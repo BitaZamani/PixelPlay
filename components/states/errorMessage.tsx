@@ -1,13 +1,7 @@
 import Image from "next/image";
-import { Button } from "../ui/button";
-
-type ErrorMessageProps = {
-  message?: string | null;
-  onRetry?: () => void;
-};
-const ErrorMessage = ({ message, onRetry }: ErrorMessageProps) => {
+const ErrorMessage = ({ message}: {message:string | null}) => {
   return (
-    <div className="flex items-center justify-center flex-col p-8 space-y-4 min-h-[calc(100vh-250px)]">
+    <div className="flex items-center justify-center flex-col p-8">
       <div className="flex justify-center items-center w-[300px]">
         <Image
           src={"/error.png"}
@@ -20,11 +14,7 @@ const ErrorMessage = ({ message, onRetry }: ErrorMessageProps) => {
       <p className="text-purple-100 text-base font-semibold">
         Error: {message || "Something went wrong."}
       </p>
-      {onRetry && (
-        <Button onClick={onRetry} variant={"destructive"}>
-          Retry
-        </Button>
-      )}
+      
     </div>
   );
 };

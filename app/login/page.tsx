@@ -1,13 +1,14 @@
 "use client";
 import { Lock, Mail } from "lucide-react";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Input from "@/components/ui/input";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "@/lib/Redux/features/auth/authSlice";
 import { showToast } from "@/components/ui/toasts";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/lib/Redux/store";
 
 const Login = () => {
   const router = useRouter();
@@ -16,6 +17,12 @@ const Login = () => {
   const userEmail = "example@example.com";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) router.push("/profile");
+  }, [isLoggedIn, router]);
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (email === userEmail && password === userPassword) {
@@ -30,6 +37,7 @@ const Login = () => {
       });
     }
   };
+
   return (
     <div>
       <div className="flex justify-center items-center h-screen">

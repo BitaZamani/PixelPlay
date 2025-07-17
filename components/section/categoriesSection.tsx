@@ -11,17 +11,17 @@ const CategoriesSection = () => {
     { name: "publishers", pic: "/categories/publishers.jpg" },
   ];
   return (
-    <section className="mt-[17vw]">
+    <section className="-mt-[27vw]">
       <div className="text-xl md:text-3xl flex justify-center items-center">
         <Gamepad2 className="text-purple-950" size={"30px"} />
         <span className="text-purple-100">Popular Categories</span>
       </div>
-      <section className="grid grid-cols-3  h-[280px] gap-2.5 my-5">
+      <section className="grid grid-cols-3 h-[280px] gap-2.5 my-5">
         {categories.map((category, index) => (
           <Link
             href={`/${category.name}`}
             key={index}
-            className="relative overflow-hidden group col-span-1"
+            className="relative overflow-hidden group col-span-1 bg-black"
           >
             <Image
               src={category.pic}
@@ -29,9 +29,9 @@ const CategoriesSection = () => {
               alt={category.name}
               priority
               loading="eager"
-              className="object-cover group-hover:opacity-80 pb-4"
+              className="object-cover group-hover:opacity-60  pb-4"
             />
-            <span className="absolute bottom-5 right-1/2 translate-1/2  text-md italic font-semibold bg-purple-400 py-0.5 px-2 group-hover:bottom-1/2 transition-all duration-300">
+            <span className="absolute bottom-5 right-1/2 translate-1/2  text-sm md:text-base italic font-semibold bg-purple-400 py-0.5 px-2 group-hover:bottom-1/2 transition-all duration-300">
               {category.name}
             </span>
           </Link>

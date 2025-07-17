@@ -19,7 +19,7 @@ const ProfilePage = () => {
 
   return (
     <ProtectedRoute>
-      <div className=" p-6">
+      <div className="p-5 min-h-screen">
         <div className="flex justify-between">
           <div className="flex flex-col space-x-6">
             <h1 className="text-3xl font-bold">{name}</h1>
