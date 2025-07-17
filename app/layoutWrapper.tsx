@@ -19,12 +19,16 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
           <div className="w-11/12 mx-auto">
             <Menu
               className={`${
-                pathName === ("/login" || "/profile")
+                pathName === "/login" || pathName === "/profile"
                   ? "hidden"
-                  : "block bg-purple-950"
+                  : "block"
               }`}
             />
-            <div className={`${pathName === "/" ? "block " : "hidden"}`}>
+            <div
+              className={`${
+                pathName === "/" ? "block bg-purple-950 " : "hidden"
+              }`}
+            >
               <HeroSection />
             </div>
           </div>
@@ -45,7 +49,9 @@ const LayoutWrapper = ({ children }: { children: ReactNode }) => {
         <Toaster />
         <Footer
           className={`${
-            pathName === ("/login" || "/profile") ? "hidden" : "block"
+            pathName === "/login" || pathName === "/profile"
+              ? "hidden"
+              : "block"
           }`}
         />
       </StoreProvider>
