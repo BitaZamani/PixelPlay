@@ -5,9 +5,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RootState } from "@/lib/Redux/store";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ProtectedRoute from "../protectedRoute";
 
 const ProfilePage = () => {
-  const { bookmarks, email, favorites, isLoggedIn, name } = useSelector(
+  const { bookmarks, email, favorites, name } = useSelector(
     (state: RootState) => state.auth
   );
   const [faveData, setFaveData] = useState([]);
@@ -59,34 +60,36 @@ const ProfilePage = () => {
     fetchBookmarks();
   }, [bookmarks]);
   return (
-    <div className=" p-6 w-full h-full border rounded shadow-sm bg-white">
-      <div className="flex items-center space-x-6">
-        <h1 className="text-3xl font-bold">{name}</h1>
-        <p className="text-gray-600">{email}</p>
+    <ProtectedRoute>
+      <div className=" p-6 w-full h-full border rounded shadow-sm bg-white">
+        <div className="flex items-center space-x-6">
+          <h1 className="text-3xl font-bold">{name}</h1>
+          <p className="text-gray-600">{email}</p>
+        </div>
+        <Tabs>
+          <TabsList defaultValue="favorites">
+            <TabsTrigger value="favorites">Favorites</TabsTrigger>
+            <TabsTrigger value="bookmarks">Bookmarks</TabsTrigger>
+          </TabsList>
+          <TabsContent value="favorites">
+            <GamesGrid
+              count={faveData.length}
+              games={{ results: faveData }}
+              urlBase="games"
+              page={1}
+            />
+          </TabsContent>
+          <TabsContent value="bookmarks">
+            <GamesGrid
+              count={bookmarkData.length}
+              games={{ results: bookmarkData }}
+              urlBase="games"
+              page={1}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
-      <Tabs>
-        <TabsList defaultValue="favorites">
-          <TabsTrigger value="favorites">Favorites</TabsTrigger>
-          <TabsTrigger value="bookmarks">Bookmarks</TabsTrigger>
-        </TabsList>
-        <TabsContent value="favorites">
-          <GamesGrid
-            count={faveData.length}
-            games={{ results: faveData }}
-            urlBase="games"
-            page={1}
-          />
-        </TabsContent>
-        <TabsContent value="bookmarks">
-          <GamesGrid
-            count={faveData.length}
-            games={{ results: faveData }}
-            urlBase="games"
-            page={1}
-          />
-        </TabsContent>
-      </Tabs>
-    </div>
+    </ProtectedRoute>
   );
 };
 
