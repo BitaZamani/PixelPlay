@@ -12,9 +12,9 @@ const Footer = ({ className }: { className: string | undefined }) => {
 
   return (
     <div
-      className={`py-2 text-purple-100 rounded-t-2xl bg-purple-950 flex items-center justify-evenly ${className}`}
+      className={`py-2 text-purple-100 rounded-t-2xl bg-purple-950 flex items-center justify-evenly relative ${className}`}
     >
-      <div className="">
+      <div>
         <span className="text-sm md:text-base">Quick Links</span>
         <ul className="text-xs md:text-sm space-y-1.5 text-center ">
           {menuItems.map((item, index) => (
@@ -28,6 +28,9 @@ const Footer = ({ className }: { className: string | undefined }) => {
         <span>Contact me:</span>
         <SocialMedia />
       </div>
+      <span className="absolute bottom-0 text-xs">
+        © 2025 Bita Zamani. All rights reserved.
+      </span>
     </div>
   );
 };
