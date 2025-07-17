@@ -62,20 +62,28 @@ const authSlice = createSlice({
             state.bookmarks = [];
             localStorage.clear()
         },
-        addFavorite:(state,action:PayloadAction<{id:number,background_image:string, name:string}>)=>{
-            if(!state.favorites.find((favorite)=>favorite.id===action.payload.id))
-            state.favorites.push({id:action.payload.id, background_image:action.payload.background_image, name:action.payload.name})
-        },
-        removeFavorite:(state,action:PayloadAction<number>)=>{
-            state.favorites= state.favorites.filter((favorite)=>favorite.id!==action.payload)
-        },
-        addBookmark:(state,action:PayloadAction<{id:number,background_image:string, name:string}>)=>{
-            if(!state.bookmarks.find((bookmark)=>bookmark.id===action.payload.id))
-            state.bookmarks.push({id:action.payload.id, background_image:action.payload.background_image, name:action.payload.name})
-        },
-        removeBookmark:(state,action:PayloadAction<number>)=>{
-            state.bookmarks= state.bookmarks.filter((bookmark)=>bookmark.id!==action.payload)
-        },
+        addFavorite: (state, action: PayloadAction<{ id: number; background_image: string; name: string }>) => {
+            if (!state.favorites.find((favorite) => favorite.id === action.payload.id)) {
+              state.favorites.push(action.payload);
+              localStorage.setItem("userFavorites", JSON.stringify({ favorites: state.favorites }));
+            }
+          },
+          removeFavorite: (state, action: PayloadAction<number>) => {
+            state.favorites = state.favorites.filter((favorite) => favorite.id !== action.payload);
+            localStorage.setItem("userFavorites", JSON.stringify({ favorites: state.favorites }));
+          },
+          
+          addBookmark: (state, action: PayloadAction<{ id: number; background_image: string; name: string }>) => {
+            if (!state.bookmarks.find((bookmark) => bookmark.id === action.payload.id)) {
+              state.bookmarks.push(action.payload);
+              localStorage.setItem("userBookmarks", JSON.stringify(state.bookmarks));
+            }
+          },
+          removeBookmark: (state, action: PayloadAction<number>) => {
+            state.bookmarks = state.bookmarks.filter((bookmark) => bookmark.id !== action.payload);
+            localStorage.setItem("userBookmarks", JSON.stringify(state.bookmarks));
+          },
+          
     }
 
 })

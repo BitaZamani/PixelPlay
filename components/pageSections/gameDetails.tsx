@@ -42,6 +42,11 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
   const [isfaved, setIsFaved] = useState(false);
   const [isMarked, setIsMarked] = useState(false);
   useEffect(() => {
+    localStorage.setItem("userFavorites", JSON.stringify({ favorites }));
+    localStorage.setItem("userBookmarks", JSON.stringify(bookmarks));
+  }, [favorites, bookmarks]);
+
+  useEffect(() => {
     if (favorites.find((fave) => fave.id === data.id)) setIsFaved(true);
     if (bookmarks.find((mark) => mark.id === data.id)) setIsMarked(true);
   }, [bookmarks, data.id, favorites]);
@@ -132,7 +137,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
                 : "Add to your favorite games."
             }
             onClick={() =>
-              isfaved
+              isMarked
                 ? dispatch(removeFavorite(data.id))
                 : dispatch(addFavorite(data))
             }
