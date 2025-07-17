@@ -1,3 +1,4 @@
+"use client"
 import { Lock, Mail } from "lucide-react";
 import React, { FormEvent, useState } from "react";
 import Input from "@/components/ui/input";
