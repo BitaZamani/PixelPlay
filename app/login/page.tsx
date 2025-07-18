@@ -25,16 +25,35 @@ const Login = () => {
   }, [isLoggedIn, router]);
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (email === userEmail && password === userPassword) {
-      dispatch(logIn({ name: "John Doe", email: userEmail }));
-      router.push("/profile");
-    } else if (email === "" || password === "") {
-      showToast({ description: "Please fill the inputs.", variant: "warning" });
-    } else {
-      showToast({
-        description: "Email or password is wrong.",
-        variant: "error",
-      });
+    try {
+      if (email === userEmail && password === userPassword) {
+        dispatch(logIn({ name: "John Doe", email: userEmail }));
+        router.push("/profile");
+        showToast({
+          description: "Login was successful.",
+          variant: "success",
+        });
+      } else if (email === "" || password === "")
+        showToast({
+          description: "Please fill the inputs.",
+          variant: "warning",
+        });
+      else
+        showToast({
+          description: "Email or password is wrong.",
+          variant: "error",
+        });
+    } catch (error) {
+      if (error instanceof Error)
+        showToast({
+          description: error.message,
+          variant: "error",
+        });
+      else
+        showToast({
+          description: "Something went wrong.",
+          variant: "error",
+        });
     }
   };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -7,20 +9,18 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { cookies } from "next/headers";
 import User from "./user";
-const Menu = async () => {
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/Redux/store";
+
+const Menu = () => {
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
   const menuItems = [
     { label: "Home", address: "/" },
     { label: "Games", address: "/games" },
     { label: "About Me", address: "/aboutme" },
   ];
-  const cookie = await cookies();
-  const user = cookie.get("user");
-  let isLoggedIn = false;
-  if (user) {
-    isLoggedIn = JSON.parse(user.value).isLoggedIn;
-  }
 
   return (
     <NavigationMenu className={`w-11/12 mx-auto`}>

@@ -5,10 +5,30 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useDispatch } from "react-redux";
 import { logOut } from "@/lib/Redux/features/auth/authSlice";
 import Link from "next/link";
+import { showToast } from "../ui/toasts";
 
 const User = () => {
   const dispatch = useDispatch();
-
+  const userLogOut = () => {
+    try {
+      dispatch(logOut());
+      showToast({
+        description: "You logged out successfully.",
+        variant: "success",
+      });
+    } catch (error) {
+      if (error instanceof Error)
+        showToast({
+          description: error.message,
+          variant: "error",
+        });
+      else
+        showToast({
+          description: "Something went wrong.",
+          variant: "error",
+        });
+    }
+  };
   return (
     <div>
       <Popover>
@@ -26,7 +46,7 @@ const User = () => {
 
           <div
             className="flex cursor-pointer items-center gap-1 hover:text-purple-600"
-            onClick={() => dispatch(logOut())}
+            onClick={userLogOut}
           >
             <LogOut className="size-5 md:size-7" />
             <span>Logout</span>
