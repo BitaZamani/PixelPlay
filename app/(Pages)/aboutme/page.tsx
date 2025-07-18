@@ -1,4 +1,3 @@
-"use client";
 import SocialMedia from "@/components/pageSections/socialMedia";
 import { Gamepad2, MessageCircleHeart, Send } from "lucide-react";
 import { VT323 } from "next/font/google";
@@ -6,10 +5,6 @@ import { VT323 } from "next/font/google";
 const vt323 = VT323({ subsets: ["latin"], weight: "400" });
 
 const AboutMe = () => {
-  const openLink = (url: string) => {
-    window.open(url, "_blank");
-  };
-
   return (
     <div
       className={`bg-black py-5 px-2 text-purple-100 text-lg leading-normal ${vt323.className}`}
