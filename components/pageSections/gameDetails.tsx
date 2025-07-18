@@ -62,8 +62,8 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
   };
 
   return (
-    <div className="p-2.5 bg-black text-purple-100">
-      <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative h-[calc(h-full + 50px)]">
+    <div className="p-2.5 bg-black text-purple-100 text-sm">
+      <section className="flex items-center md:justify-between gap-12 flex-col md:flex-row relative">
         <div className="h-[200px] pattern-diagonal-lines-sm pattern-color-purple-100">
           <Image
             src={data.background_image}
@@ -75,7 +75,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
           />
         </div>
         <div className="flex flex-col md:flex-row gap-1.5 w-full">
-          <div className="flex flex-col justify-start w-1/2 gap-3 text-sm">
+          <div className="flex flex-col justify-start w-1/2 gap-3 ">
             <div className="space-x-1.5 text-xl">
               <span>{data.name}</span>
               <span>{data.released.split("-")[0]}</span>
@@ -150,9 +150,7 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
             onClick={fave}
           />
           <FullTooltip
-            trigger={
-              <Bookmark className={`${isMarked ? "fill-red-600" : ""}`} />
-            }
+            trigger={<Bookmark className={`${isMarked ? "fill-white" : ""}`} />}
             content={
               isfaved
                 ? "Remove from your bookmarks. "
@@ -179,17 +177,19 @@ const GameDetails = ({ data, screens }: GameDetailProps) => {
             {screens?.results.map((screen) => (
               <CarouselItem
                 key={screen.id}
-                className="basis-1/2 md:basis-1/3 pl-5"
+                className="basis-full sm:basis-1/2 md:basis-1/3"
               >
-                <div className="w-[200px] md:w-[240px] gap-2 max-h-[140px] min-h-[140px]">
-                  <Image
-                    src={screen.image}
-                    alt=""
-                    width={300}
-                    height={300}
-                    onClick={() => openImages(screen.image)}
-                    className="w-full h-full cursor-pointer"
-                  />
+                <div className="flex justify-center items-center w-full h-[140px] sm:h-[200px]">
+                  <div className="w-full h-full ">
+                    <Image
+                      src={screen.image}
+                      onClick={() => openImages(screen.image)}
+                      alt=""
+                      width={300}
+                      height={300}
+                      className="w-full h-full cursor-pointer p-3"
+                    />
+                  </div>
                 </div>
               </CarouselItem>
             ))}

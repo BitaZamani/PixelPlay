@@ -24,9 +24,15 @@ const Menu = async () => {
 
   return (
     <NavigationMenu className={`w-11/12 mx-auto`}>
-      <NavigationMenuList className="justify-between bg-purple-950">
+      <NavigationMenuList className="justify-between bg-purple-950 p-2">
         <NavigationMenuItem>
-          <Image src={"/logo.svg"} width={50} height={50} alt="logo" />
+          <Image
+            src={"/logo.svg"}
+            width={50}
+            height={50}
+            alt="logo"
+            className="size-7"
+          />
         </NavigationMenuItem>
         <div className="flex w-4/6 mx-auto">
           {menuItems.map((item, index) => (

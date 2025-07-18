@@ -5,7 +5,6 @@ import React from "react";
 
 const CategoriesSection = () => {
   const categories = [
-    //{ name: "games", pic: "/categories/games.jpg" },
     { name: "genres", pic: "/categories/genres.jpg" },
     { name: "platforms", pic: "/categories/platforms.jpg" },
     { name: "publishers", pic: "/categories/publishers.jpg" },

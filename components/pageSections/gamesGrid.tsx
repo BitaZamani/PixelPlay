@@ -28,7 +28,7 @@ const GamesGrid = ({ games, page, id, urlBase, count }: GamesGridProps) => {
                   unoptimized
                   className="w-full h-32"
                 />
-                <span className="absolute top-2 right-3.5 bg-purple-200 rounded-full text-xs font-extralight size-8 flex justify-center items-center border border-purple-500">
+                <span className="absolute top-2 right-3.5 bg-purple-900 rounded-full text-xs font-extralight size-8 flex justify-center items-center border border-purple-500">
                   {game.metacritic}
                 </span>
                 <CardTitle className="text-xs pt-2">{game.name}</CardTitle>

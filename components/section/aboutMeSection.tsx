@@ -18,7 +18,7 @@ const AboutMeSection = () => {
         </p>
         <p>
           This site is a personal project which brings code & play together to
-          show my skills and learn new things.
+          show my skills and practice new things.
         </p>
         <div className="justify-end flex">
           <Button size={"sm"} asChild>

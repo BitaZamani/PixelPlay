@@ -37,12 +37,9 @@ const AboutMe = () => {
         <div>
           <p>
             This project is a basic game site and started as a personal
-            challenge and was a learning playground..
-          </p>
-          <p>
-            It was my first time working with ShadCN UI and Redux Toolkit. I
-            also tried to get more comfortable with Next.js (App Router) and
-            TypeScript.
+            challenge and was a learning playground. It was my first time
+            working with ShadCN UI and Redux Toolkit. I also tried to get more
+            comfortable with Next.js (App Router) and TypeScript.
           </p>
           Throughout the process, I focused on improving how I work with:
           <ul className="list-disc pl-10">
@@ -53,20 +50,9 @@ const AboutMe = () => {
             <li>
               Redux Toolkit for async data fetching and global state handling
             </li>
-            <li>ShadCN UI components for clean, accessible interface design</li>
-            <li>
-              Type safety with TypeScript for more maintainable, scalable code
-            </li>
+            <li>ShadCN UI components</li>
+            <li>Type safety with TypeScript</li>
           </ul>
-          The app uses the{" "}
-          <span
-            className="text-purple-900 cursor-pointer"
-            onClick={() => openLink("https://rawg.io/")}
-          >
-            RAWG Video Games API
-          </span>
-          , allowing users to explore games, platforms, and genres through a
-          clean and intuitive UI.
           <p>
             Finally, This project taught me a lot, not just technically, but in
             how to think through UX, performance, and scalable structure. And
