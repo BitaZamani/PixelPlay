@@ -30,21 +30,21 @@ It allows users to **search for games**, explore trending titles, and view detai
    cd pixelplay
    ```
 2.Install dependencies:
-```bash
-npm install
-```
+   ```bash
+   npm install
+   ```
 3.Create a .env.local file in the root and add your RAWG API key:
-```bash
-NEXT_PUBLIC_RAWG_API_KEY=your_api_key_here
-```
+   ```bash
+   NEXT_PUBLIC_RAWG_API_KEY=your_api_key_here
+   ```
 4.Run the development server:
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
+   ```
 5.Open your browser and go to:
-```bash
-http://localhost:3000
-```
+   ```bash
+   http://localhost:3000
+   ```
 ## 📜 License
 
 This project is licensed under the MIT License.  
